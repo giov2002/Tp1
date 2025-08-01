@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blueline - Solutions Technologiques</title>
+  <style>
+    :root {
+      --blue-primary: #2563eb;
+      --blue-dark: #1e40af;
+      --orange: #f97316;
+      --orange-dark: #ea580c;
+      --gray-bg: #f8fafc;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      scroll-behavior: smooth;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--blue-primary), var(--blue-dark));
+      color: white;
+      padding: 1rem 0;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #93c5fd;
+    }
+
+    .burger {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      cursor: pointer;
+    }
+
+    .burger div {
+      width: 25px;
+      height: 3px;
+      background: white;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, var(--blue-dark), var(--blue-primary));
+      color: white;
+      padding: 120px 0 80px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      animation: fadeInUp 1s ease-out;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      animation: fadeInUp 1s ease-out 0.2s both;
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--orange);
+      color: white;
+      padding: 12px 30px;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: all 0.3s;
+      animation: fadeInUp 1s ease-out 0.4s both;
+    }
+
+    .btn:hover {
+      background: var(--orange-dark);
+      transform: translateY(-2px);
+    }
+
+    .services {
+      padding: 80px 0;
+      background: var(--gray-bg);
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+      color: var(--blue-dark);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .service-card {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+
+    .service-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .service-icon {
+      font-size: 3rem;
+      color: var(--blue-primary);
+      margin-bottom: 1rem;
+    }
+
+    .about {
+      padding: 80px 0;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 1s ease-out;
+    }
+
+    .about.appear {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .about-text h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--blue-dark);
+    }
+
+    .about-text p {
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .stat {
+      text-align: center;
+      padding: 1rem;
+      background: #f1f5f9;
+      border-radius: 8px;
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: bold;
+      color: var(--blue-primary);
+    }
+
+    .contact {
+      padding: 80px 0;
+      background: #1e293b;
+      color: white;
+    }
+
+    .contact-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+
+    .contact-form {
+      background: #334155;
+      padding: 2rem;
+      border-radius: 10px;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background: #475569;
+      color: white;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: #cbd5e1;
+    }
+
+    .contact-info h3 {
+      margin-bottom: 1rem;
+      color: #93c5fd;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .contact-item span {
+      margin-right: 1rem;
+      font-size: 1.2rem;
+    }
+
+    footer {
+      background: #0f172a;
+      color: white;
+      text-align: center;
+      padding: 2rem 0;
+    }
+
+    #backToTop {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--blue-dark);
+      color: white;
+      border: none;
+      padding: 12px 15px;
+      border-radius: 50%;
+      font-size: 18px;
+      cursor: pointer;
+      display: none;
+      z-index: 1001;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        gap: 1rem;
+        background: var(--blue-dark);
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        padding: 1rem;
+        border-radius: 10px;
+      }
+
+      .nav-links.show {
+        display: flex;
+      }
+
+      .burger {
+        display: flex;
+      }
+
+      .about-content,
+      .contact-content,
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="container">
+      <div class="logo">Blueline</div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#accueil">Accueil</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#about">À propos</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="burger" id="burger">
+        <div></div><div></div><div></div>
+      </div>
+    </nav>
+  </header>
+
+  <section id="accueil" class="hero">
+    <div class="container">
+      <h1>Bienvenue chez Blueline</h1>
+      <p>Votre partenaire technologique pour des solutions innovantes</p>
+      <a href="#services" class="btn">Découvrir nos services</a>
+    </div>
+  </section>
+
+  <section id="services" class="services">
+    <div class="container">
+      <h2 class="section-title">Nos Services</h2>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">⚙️</div>
+          <h3>Solutions Techniques</h3>
+          <p>Développement et intégration sur mesure pour vos processus métier.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">👥</div>
+          <h3>Conseil & Formation</h3>
+          <p>Accompagnement personnalisé et formation de vos équipes.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">⚡</div>
+          <h3>Innovation Digitale</h3>
+          <p>Transformation numérique pour propulser votre entreprise.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="about">
+    <div class="container">
+      <div class="about-content">
+        <div class="about-text">
+          <h2>À propos de Blueline</h2>
+          <p>Blueline s'impose comme acteur de référence en solutions technologiques.</p>
+          <p>Notre équipe d'experts passionnés accompagne la transformation digitale des entreprises.</p>
+          <div class="stats">
+            <div class="stat"><div class="stat-number">50+</div><div>Projets réalisés</div></div>
+            <div class="stat"><div class="stat-number">25+</div><div>Clients satisfaits</div></div>
+            <div class="stat"><div class="stat-number">5+</div><div>Années d'expérience</div></div>
+            <div class="stat"><div class="stat-number">10+</div><div>Experts qualifiés</div></div>
+          </div>
+        </div>
+        <div class="about-image">
+          <div style="background: linear-gradient(135deg, var(--blue-primary), var(--blue-dark)); height: 300px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 4rem;">
+            🚀
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="container">
+      <h2 class="section-title" style="color: white;">Contactez-nous</h2>
+      <div class="contact-content">
+        <div class="contact-form">
+          <h3>Envoyez-nous un message</h3>
+          <form id="contactForm">
+            <div class="form-group">
+              <label for="name">Nom</label>
+              <input type="text" id="name" placeholder="Votre nom" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" placeholder="votre.email@exemple.com" required>
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" rows="5" placeholder="Votre message..." required></textarea>
+            </div>
+            <button type="submit" class="btn">Envoyer</button>
+          </form>
+          <p id="confirmationMessage" style="margin-top:1rem;color:#34d399;display:none;">Merci pour votre message !</p>
+        </div>
+        <div class="contact-info">
+          <h3>Informations de contact</h3>
+          <div class="contact-item"><span>📞</span><div><strong>Téléphone</strong><br>+33 1 23 45 67 89</div></div>
+          <div class="contact-item"><span>✉️</span><div><strong>Email</strong><br>contact@blueline.fr</div></div>
+          <div class="contact-item"><span>📍</span><div><strong>Adresse</strong><br>123 Avenue de la Technologie<br>75001 Paris, France</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2024 Blueline. Tous droits réservés.</p>
+    </div>
+  </footer>
+
+  <button id="backToTop" title="Remonter">↑</button>
+
+  <script>
+    // Smooth scroll & menu burger
+    const burger = document.getElementById('burger');
+    const navLinks = document.getElementById('navLinks');
+
+    burger.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+    });
+
+    // Form submit confirmation
+    document.getElementById('contactForm').addEventListener('submit', e => {
+      e.preventDefault();
+      document.getElementById('confirmationMessage').style.display = 'block';
+    });
+
+    // Scroll back to top
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      backToTop.style.display = window.scrollY > 300 ? 'block' : 'none';
+    });
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Fade in about section
+    const about = document.querySelector('.about');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          about.classList.add('appear');
+        }
+      });
+    }, { threshold: 0.2 });
+    observer.observe(about);
+  </script>
+</body>
+</html>
