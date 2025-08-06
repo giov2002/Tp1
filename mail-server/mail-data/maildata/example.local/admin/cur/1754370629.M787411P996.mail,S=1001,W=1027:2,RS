@@ -1,0 +1,26 @@
+Return-Path: <giovanni@example.local>
+Delivered-To: admin@example.local
+Received: from mail.example.local
+	by mail.example.local with LMTP
+	id jZXALkWSkWjkAwAAasaajw
+	(envelope-from <giovanni@example.local>)
+	for <admin@example.local>; Tue, 05 Aug 2025 05:10:29 +0000
+Received: from localhost (localhost [127.0.0.1])
+	by mail.example.local (Postfix) with ESMTP id 9151F199C9
+	for <admin@example.local>; Tue,  5 Aug 2025 05:10:29 +0000 (UTC)
+Received: from localhost (roundcube.mail-server_default [172.19.0.2])
+	(Authenticated sender: giovanni@example.local)
+	by mail.example.local (Postfix) with ESMTPA id 27AB2199C2
+	for <admin@example.local>; Tue,  5 Aug 2025 05:10:27 +0000 (UTC)
+MIME-Version: 1.0
+Date: Tue, 05 Aug 2025 08:10:27 +0300
+From: giovanni@example.local
+To: admin@example.local
+Subject: Test
+Message-ID: <39edd4a766eff066bd2df733499a7b81@example.local>
+X-Sender: giovanni@example.local
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+
+Bonjour

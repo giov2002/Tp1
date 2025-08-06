@@ -1,25 +1,15 @@
-version: '3.8'
-
 services:
+  # Services web existants (inchangés)
   apache-web:
-    build: 
+    build:
       context: ./apache
       dockerfile: Dockerfile
     container_name: apache-lab
     ports:
       - "8080:80"
     restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost/"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 30s
     networks:
       - web-network
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.apache.rule=Host(`apache.local`)"
 
   nginx-web:
     build:
@@ -29,19 +19,9 @@ services:
     ports:
       - "8081:80"
     restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost/"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 30s
     networks:
       - web-network
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.nginx.rule=Host(`nginx.local`)"
 
-  # Load balancer simple avec Nginx
   load-balancer:
     image: nginx:alpine
     container_name: lb-lab
@@ -55,6 +35,53 @@ services:
     restart: unless-stopped
     networks:
       - web-network
+
+  # MySQL simplifié
+  mysql-db:
+    image: mysql:8.1
+    container_name: mysql-lab
+    environment:
+      MYSQL_ROOT_PASSWORD: giovanni09
+      MYSQL_DATABASE: blueline_db
+      MYSQL_USER: blueline_user
+      MYSQL_PASSWORD: giovanni09
+    ports:
+      - "3306:3306"
+    volumes:
+      # Volume pour les données uniquement
+      - mysql-data:/var/lib/mysql
+      # Scripts d'initialisation
+      - ./mysql/scripts:/docker-entrypoint-initdb.d:ro
+    restart: unless-stopped
+    # Health check simplifié
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 80s
+    networks:
+      - web-network
+
+  # phpMyAdmin (sans dépendance stricte)
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin-lab
+    environment:
+      PMA_HOST: mysql-lab
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: giovanni09
+    ports:
+      - "8083:80"
+    restart: unless-stopped
+    
+    networks:
+      - web-network
+
+volumes:
+  mysql-data:
+    name: blueline-mysql-data
 
 networks:
   web-network:
